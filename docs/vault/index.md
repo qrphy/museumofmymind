@@ -4,7 +4,7 @@
 **Kaynak:** https://github.com/qrphy/museumofmymind.git  
 **Tech stack:** Next.js, TypeScript, Cloudinary  
 **Hosting:** Vercel  
-**Durum:** Vercel'de canlı — custom domain DNS bekliyor  
+**Durum:** Canlı  
 **Son güncelleme:** 2026-06-18
 
 ---
@@ -33,8 +33,8 @@ Photos uygulamasındaki `museum of my mind` albümünde bulunan kişisel favori 
 - [x] Photos albümünün dışa aktarılması
 - [x] 171 görselin Cloudinary'ye toplu yüklenmesi
 - [x] Vercel production dağıtımı
-- [ ] Cloudflare DNS üzerinden custom domain bağlantısı
+- [x] Cloudflare DNS üzerinden custom domain bağlantısı
 
 ## Canlı Adres
 
-- https://museumofmymind-iota.vercel.app
+- https://museumofmymind.com

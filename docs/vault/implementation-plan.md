@@ -2,7 +2,7 @@
 tags: [project, plan, gallery]
 tarih: 2026-06-18
 source: /Users/furkan/projects/museumofmymind/docs/superpowers/plans/2026-06-18-museum-gallery-implementation.md
-status: in-progress
+status: complete
 ---
 
 # Uygulama Planı
@@ -97,4 +97,6 @@ Başlıklar, tarihler, kategoriler, arama, beğeniler, hesaplar, yorumlar, CMS v
 - Unit test, lint, typecheck, production build ve Playwright kontrolleri geçti.
 - Vercel production deploy canlı: https://museumofmymind-iota.vercel.app
 - `museumofmymind.com` ve `www` Vercel projesine eklendi.
-- Cloudflare üzerinde apex A ve `www` CNAME kayıtları henüz eklenmedi.
+- Cloudflare apex A ve `www` CNAME kayıtları aktif.
+- HTTPS doğrulandı; `www` kalıcı olarak `museumofmymind.com` adresine yönleniyor.
+- Canlı Playwright testi 171 görsel, responsive kolonlar ve lightbox akışıyla geçti.
