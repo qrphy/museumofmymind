@@ -3,7 +3,7 @@
 **URL:** https://museumofmymind.com  
 **Kaynak:** https://github.com/qrphy/museumofmymind.git  
 **Tech stack:** Next.js, TypeScript, Cloudinary  
-**Hosting:** Vercel  
+**Hosting:** Vercel (`furkantitizs-projects/museumofmymind`)
 **Durum:** Canlı  
 **Son güncelleme:** 2026-06-18
 
@@ -18,7 +18,7 @@ Photos uygulamasındaki `museum of my mind` albümünde bulunan kişisel favori 
 - Görseller doğal en-boy oranlarını koruyan masonry düzende gösterilecek.
 - Kart, açıklama, tarih, kategori ve sosyal etkileşim öğeleri olmayacak.
 - Görsele dokunulduğunda görsel kırpılmadan ekran ortasında büyütülecek.
-- 171 görsel Cloudinary üzerinde saklanıp CDN üzerinden sunulacak.
+- İlk yüklenen 171 görselden kullanıcı tarafından tutulan 158 görsel Cloudinary üzerinden sunulacak.
 - Site Vercel üzerinde yayınlanacak.
 
 ## Belgeler

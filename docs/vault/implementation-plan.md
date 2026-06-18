@@ -93,10 +93,10 @@ Başlıklar, tarihler, kategoriler, arama, beğeniler, hesaplar, yorumlar, CMS v
 
 ## Uygulama Durumu — 2026-06-18
 
-- 171/171 görsel Cloudinary `museum-of-my-mind` klasörüne yüklendi.
+- 171/171 görsel ilk aktarımda Cloudinary `museum-of-my-mind` klasörüne yüklendi; daha sonra kullanıcı 13 asseti kaldırdı ve canlı galeri 158 görsel olarak doğrulandı.
 - Unit test, lint, typecheck, production build ve Playwright kontrolleri geçti.
-- Vercel production deploy canlı: https://museumofmymind-iota.vercel.app
+- Vercel production deploy doğru hesapta canlı: `furkantitizs-projects/museumofmymind` — https://museumofmymind.vercel.app
 - `museumofmymind.com` ve `www` Vercel projesine eklendi.
 - Cloudflare apex A ve `www` CNAME kayıtları aktif.
 - HTTPS doğrulandı; `www` kalıcı olarak `museumofmymind.com` adresine yönleniyor.
-- Canlı Playwright testi 171 görsel, responsive kolonlar ve lightbox akışıyla geçti.
+- Canlı Playwright testi 158 görsel, responsive kolonlar ve lightbox akışıyla geçti.
