@@ -21,6 +21,14 @@ Photos uygulamasındaki `museum of my mind` albümünde bulunan kişisel favori 
 - İlk yüklenen 171 görselden kullanıcı tarafından tutulan 158 görsel Cloudinary üzerinden sunulacak.
 - Site Vercel üzerinde yayınlanacak.
 
+## SEO ve Keşfedilebilirlik
+
+- Ana sayfada canonical URL, arama sonucu başlığı ve açıklaması tanımlı.
+- Open Graph ve Twitter için 1200×630 sosyal paylaşım görselleri üretiliyor.
+- `robots.txt`, Cloudinary görsellerini içeren `sitemap.xml` ve büyük görsel önizleme direktifleri aktif.
+- Sayfa `WebSite`, `CollectionPage` ve `ImageGallery` JSON-LD verileriyle tanımlanıyor.
+- SEO değerleri `src/lib/site.ts` içinde tek kaynaktan yönetiliyor.
+
 ## Belgeler
 
 - [[projects/museumofmymind/gallery-design]] — Onaylanan galeri tasarımı ve teknik mimari
@@ -34,6 +42,7 @@ Photos uygulamasındaki `museum of my mind` albümünde bulunan kişisel favori 
 - [x] 171 görselin Cloudinary'ye toplu yüklenmesi
 - [x] Vercel production dağıtımı
 - [x] Cloudflare DNS üzerinden custom domain bağlantısı
+- [x] Teknik SEO, sosyal paylaşım metadata ve görsel sitemap kurulumu
 
 ## Canlı Adres
 

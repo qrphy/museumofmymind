@@ -100,3 +100,7 @@ Başlıklar, tarihler, kategoriler, arama, beğeniler, hesaplar, yorumlar, CMS v
 - Cloudflare apex A ve `www` CNAME kayıtları aktif.
 - HTTPS doğrulandı; `www` kalıcı olarak `museumofmymind.com` adresine yönleniyor.
 - Canlı Playwright testi 158 görsel, responsive kolonlar ve lightbox akışıyla geçti.
+- Canonical URL, arama sonucu metadata, Open Graph ve Twitter kartları eklendi.
+- Next.js metadata route'larıyla `robots.txt`, görsel `sitemap.xml` ve 1200×630 sosyal paylaşım görselleri oluşturuldu.
+- `WebSite`, `CollectionPage` ve `ImageGallery` JSON-LD yapılandırılmış verileri eklendi.
+- SEO değişiklikleri 29 unit test, lint, typecheck, production build ve yerel production endpoint kontrolleriyle doğrulandı.
