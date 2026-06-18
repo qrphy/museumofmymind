@@ -1,0 +1,5 @@
+.photos-export/
+.env.local
+test-results/
+playwright-report/
+coverage/
