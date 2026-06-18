@@ -76,6 +76,7 @@ describe("uploadDirectory", () => {
       join(root, "one.jpg"),
       expect.objectContaining({
         asset_folder: "museum-of-my-mind",
+        public_id: expect.stringMatching(/^one-[a-f0-9]{10}$/),
         unique_filename: true,
         use_filename: true,
       }),

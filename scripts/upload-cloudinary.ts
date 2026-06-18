@@ -1,5 +1,6 @@
-import { readdir, stat } from "node:fs/promises";
-import { extname, join, resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { basename, extname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { v2 as cloudinary, type UploadApiOptions } from "cloudinary";
@@ -75,6 +76,16 @@ export async function listImageFiles(root: string): Promise<string[]> {
   return files;
 }
 
+async function buildPublicId(pathname: string): Promise<string> {
+  const content = await readFile(pathname);
+  const stem = basename(pathname, extname(pathname))
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "") || "asset";
+  const hash = createHash("sha256").update(content).digest("hex").slice(0, 10);
+  return `${stem}-${hash}`;
+}
+
 const cloudinaryUploader: UploadFile = (pathname, options) =>
   cloudinary.uploader.upload(pathname, options);
 
@@ -95,8 +106,10 @@ export async function uploadDirectory(
     }
 
     try {
+      const publicId = await buildPublicId(pathname);
       await uploader(pathname, {
         asset_folder: "museum-of-my-mind",
+        public_id: publicId,
         resource_type: "image",
         unique_filename: true,
         use_filename: true,
