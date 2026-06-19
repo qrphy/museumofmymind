@@ -83,7 +83,10 @@ export function Gallery({
     <>
       <div className="gallery-frame">
         <div aria-label="Gallery layout" className="layout-picker" role="group">
-          <div className="layout-picker__options layout-picker__options--mobile">
+          <div
+            className="layout-picker__options layout-picker__options--mobile"
+            data-active-option={mobileColumns === 1 ? "first" : "second"}
+          >
             {[1, 2].map((columns) => (
               <LayoutButton
                 active={mobileColumns === columns}
@@ -93,7 +96,10 @@ export function Gallery({
               />
             ))}
           </div>
-          <div className="layout-picker__options layout-picker__options--desktop">
+          <div
+            className="layout-picker__options layout-picker__options--desktop"
+            data-active-option={desktopColumns === 4 ? "first" : "second"}
+          >
             {[4, 6].map((columns) => (
               <LayoutButton
                 active={desktopColumns === columns}
@@ -187,7 +193,6 @@ function LayoutButton({
           <span key={index} />
         ))}
       </span>
-      <span className="layout-picker__label">{columns}</span>
     </button>
   );
 }

@@ -68,6 +68,7 @@ button {
 }
 
 .layout-picker__options {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.15rem;
@@ -76,24 +77,42 @@ button {
   border-radius: 999px;
 }
 
+.layout-picker__options::before {
+  position: absolute;
+  top: 0.18rem;
+  bottom: 0.18rem;
+  left: 0.18rem;
+  width: 2.6rem;
+  border-radius: 999px;
+  background: var(--ink);
+  content: "";
+  transform: translateX(0);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.layout-picker__options[data-active-option="second"]::before {
+  transform: translateX(calc(100% + 0.15rem));
+}
+
 .layout-picker__options--desktop {
   display: none;
 }
 
 .layout-picker__button {
+  position: relative;
+  z-index: 1;
   display: flex;
   min-width: 2.6rem;
   height: 2rem;
   align-items: center;
   justify-content: center;
-  gap: 0.38rem;
   padding: 0 0.55rem;
   border: 0;
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  transition: color 180ms ease, background-color 180ms ease;
+  transition: color 500ms ease;
 }
 
 .layout-picker__button:hover,
@@ -107,7 +126,6 @@ button {
 }
 
 .layout-picker__button[aria-pressed="true"] {
-  background: var(--ink);
   color: var(--paper);
 }
 
@@ -117,15 +135,15 @@ button {
   grid-auto-columns: 2px;
   gap: 2px;
   height: 10px;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.layout-picker__button[aria-pressed="true"] .layout-picker__icon {
+  transform: scaleY(1.12);
 }
 
 .layout-picker__icon span {
   background: currentColor;
-}
-
-.layout-picker__label {
-  font-size: 0.58rem;
-  line-height: 1;
 }
 
 .gallery {
