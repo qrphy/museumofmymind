@@ -18,14 +18,14 @@ const validResource = {
 };
 
 describe("normalizeResource", () => {
-  it("keeps intrinsic dimensions and adds non-cropping delivery transforms", () => {
+  it("keeps intrinsic dimensions and the validated Cloudinary source", () => {
     expect(normalizeResource(validResource)).toEqual({
       id: "asset-1",
       publicId: "museum-of-my-mind/first",
       width: 1200,
       height: 1800,
       alt: "",
-      src: "https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_limit,w_2400/v1/museum-of-my-mind/first.jpg",
+      src: "https://res.cloudinary.com/demo/image/upload/v1/museum-of-my-mind/first.jpg",
     });
   });
 

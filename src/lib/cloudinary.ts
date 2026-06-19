@@ -45,7 +45,7 @@ function isCloudinaryResource(resource: unknown): resource is CloudinaryResource
   );
 }
 
-function buildDeliveryUrl(secureUrl: string): string | null {
+function validateDeliveryUrl(secureUrl: string): string | null {
   try {
     const url = new URL(secureUrl);
 
@@ -54,11 +54,6 @@ function buildDeliveryUrl(secureUrl: string): string | null {
     }
 
     if (!url.pathname.includes("/image/upload/")) return null;
-
-    url.pathname = url.pathname.replace(
-      "/image/upload/",
-      "/image/upload/f_auto,q_auto,c_limit,w_2400/",
-    );
 
     return url.toString();
   } catch {
@@ -69,7 +64,7 @@ function buildDeliveryUrl(secureUrl: string): string | null {
 export function normalizeResource(resource: unknown): GalleryImage | null {
   if (!isCloudinaryResource(resource)) return null;
 
-  const src = buildDeliveryUrl(resource.secure_url);
+  const src = validateDeliveryUrl(resource.secure_url);
   if (!src) return null;
 
   return {
