@@ -4,14 +4,28 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
+import cloudinaryLoader from "@/lib/cloudinary-loader";
 import type { GalleryImage } from "@/lib/cloudinary";
+import { canPrefetchImages } from "@/lib/connection";
+import { IMAGE_PLACEHOLDER } from "@/lib/image-delivery";
 
 type LightboxProps = {
   images: GalleryImage[];
   activeIndex: number;
+  totalImages?: number;
   onChange: (index: number) => void;
   onClose: () => void;
 };
+
+const RESPONSIVE_IMAGE_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
+
+function getLightboxPrefetchWidth(): number {
+  const targetWidth = window.innerWidth * Math.min(window.devicePixelRatio, 2);
+  return (
+    RESPONSIVE_IMAGE_WIDTHS.find((width) => width >= targetWidth) ??
+    RESPONSIVE_IMAGE_WIDTHS.at(-1)!
+  );
+}
 
 function ArrowIcon({ direction }: { direction: "left" | "right" }) {
   return (
@@ -31,6 +45,7 @@ function ArrowIcon({ direction }: { direction: "left" | "right" }) {
 export function Lightbox({
   images,
   activeIndex,
+  totalImages = images.length,
   onChange,
   onClose,
 }: LightboxProps) {
@@ -67,6 +82,29 @@ export function Lightbox({
     return () => document.removeEventListener("keydown", handleKeyDown);
   });
 
+  useEffect(() => {
+    if (images.length < 2 || !canPrefetchImages(window.navigator)) return;
+
+    const timeout = window.setTimeout(() => {
+      const width = getLightboxPrefetchWidth();
+      const indexes = new Set([
+        (activeIndex - 1 + images.length) % images.length,
+        (activeIndex + 1) % images.length,
+      ]);
+
+      for (const index of indexes) {
+        const nearbyImage = images[index];
+        if (!nearbyImage) continue;
+
+        const preloadImage = new window.Image();
+        preloadImage.decoding = "async";
+        preloadImage.src = cloudinaryLoader({ src: nearbyImage.src, width });
+      }
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, images]);
+
   if (!image || images.length === 0) return null;
 
   return createPortal(
@@ -101,7 +139,7 @@ export function Lightbox({
 
       <div className="lightbox__topbar">
         <span aria-live="polite" className="lightbox__count">
-          {activeIndex + 1} / {images.length}
+          {activeIndex + 1} / {totalImages}
         </span>
         <button
           aria-label="Close image viewer"
@@ -125,9 +163,11 @@ export function Lightbox({
       <div className="lightbox__stage">
         <Image
           alt={image.alt}
+          blurDataURL={IMAGE_PLACEHOLDER}
           className="lightbox__image"
           height={image.height}
           preload
+          placeholder="blur"
           sizes="100vw"
           src={image.src}
           width={image.width}

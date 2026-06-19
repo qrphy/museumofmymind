@@ -21,6 +21,13 @@ export const SUPPORTED_EXTENSIONS = new Set([
 
 const MAX_FREE_IMAGE_BYTES = 10 * 1024 * 1024;
 
+export const EAGER_IMAGE_WIDTHS = [384, 828, 1200, 1920] as const;
+export const EAGER_TRANSFORMATIONS = EAGER_IMAGE_WIDTHS.flatMap((width) => [
+  `f_avif,q_auto:good,c_limit,w_${width}`,
+  `f_webp,fl_awebp,q_auto:good,c_limit,w_${width}`,
+  `f_jpg,q_auto:good,c_limit,w_${width}`,
+]);
+
 export type UploadSummary = {
   uploaded: number;
   failed: number;
@@ -109,6 +116,8 @@ export async function uploadDirectory(
       const publicId = await buildPublicId(pathname);
       await uploader(pathname, {
         asset_folder: "museum-of-my-mind",
+        eager: EAGER_TRANSFORMATIONS,
+        eager_async: true,
         public_id: publicId,
         resource_type: "image",
         unique_filename: true,

@@ -14,6 +14,14 @@ export type GalleryImage = {
   src: string;
 };
 
+export const GALLERY_PAGE_SIZE = 36;
+
+export type GalleryPage = {
+  images: GalleryImage[];
+  nextOffset: number;
+  total: number;
+};
+
 type CloudinaryResource = {
   asset_id: string;
   public_id: string;
@@ -135,4 +143,16 @@ const getCachedGalleryImages = unstable_cache(
 
 export async function getGalleryImages(): Promise<GalleryImage[]> {
   return getCachedGalleryImages();
+}
+
+export async function getGalleryPage(offset = 0): Promise<GalleryPage> {
+  const images = await getCachedGalleryImages();
+  const safeOffset = Math.max(0, Math.floor(offset));
+  const pageImages = images.slice(safeOffset, safeOffset + GALLERY_PAGE_SIZE);
+
+  return {
+    images: pageImages,
+    nextOffset: safeOffset + pageImages.length,
+    total: images.length,
+  };
 }

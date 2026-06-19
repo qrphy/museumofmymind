@@ -163,6 +163,46 @@ button {
     filter 500ms ease;
 }
 
+.gallery-loader {
+  display: grid;
+  min-height: 8rem;
+  place-items: center;
+}
+
+.gallery-loader__button {
+  padding: 0.65rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--edge);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.gallery-loader__button:hover,
+.gallery-loader__button:focus-visible {
+  border-color: var(--ink);
+  color: var(--ink);
+  outline: none;
+}
+
+.gallery-loader__button:disabled {
+  cursor: wait;
+}
+
+.gallery-loader__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 @media (hover: hover) {
   .gallery__item:hover .gallery__image {
     filter: saturate(0.96);

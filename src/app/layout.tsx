@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
 
+import { PreloadResources } from "@/components/preload-resources";
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -79,7 +80,10 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${display.variable} ${utility.variable}`} lang="en">
-      <body>{children}</body>
+      <body>
+        <PreloadResources />
+        {children}
+      </body>
     </html>
   );
 }

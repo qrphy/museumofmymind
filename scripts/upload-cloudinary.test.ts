@@ -6,6 +6,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
+  EAGER_TRANSFORMATIONS,
   UploadBatchError,
   isSupportedImage,
   listImageFiles,
@@ -76,6 +77,8 @@ describe("uploadDirectory", () => {
       join(root, "one.jpg"),
       expect.objectContaining({
         asset_folder: "museum-of-my-mind",
+        eager: EAGER_TRANSFORMATIONS,
+        eager_async: true,
         public_id: expect.stringMatching(/^one-[a-f0-9]{10}$/),
         unique_filename: true,
         use_filename: true,

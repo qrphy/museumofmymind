@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const expectedImageCount = Number(process.env.EXPECTED_IMAGE_COUNT ?? 171);
+const initialImageCount = Math.min(36, expectedImageCount);
 
 test("renders the full responsive gallery and keyboard lightbox", async ({ page }) => {
   const consoleErrors: string[] = [];
@@ -14,7 +15,7 @@ test("renders the full responsive gallery and keyboard lightbox", async ({ page 
   const gallery = page.getByRole("region", { name: "Image gallery" });
   const items = page.getByRole("button", { name: /Open image/ });
   await expect(gallery).toBeVisible();
-  await expect(items).toHaveCount(expectedImageCount);
+  await expect(items).toHaveCount(initialImageCount);
   await expect(gallery).toHaveCSS("column-count", "4");
 
   await items.first().click();
@@ -26,8 +27,18 @@ test("renders the full responsive gallery and keyboard lightbox", async ({ page 
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
 
+  while ((await items.count()) < expectedImageCount) {
+    const previousCount = await items.count();
+    const loadMore = page.getByRole("button", { name: /Load more|Loading/ });
+    await loadMore.scrollIntoViewIfNeeded();
+    if (await loadMore.isEnabled()) await loadMore.click();
+    await expect.poll(() => items.count()).toBeGreaterThan(previousCount);
+  }
+
+  await expect(items).toHaveCount(expectedImageCount);
+
   await page.screenshot({
-    fullPage: true,
+    fullPage: false,
     path: "test-results/gallery-desktop.png",
   });
 

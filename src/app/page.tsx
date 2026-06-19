@@ -1,6 +1,6 @@
 import { Gallery } from "@/components/gallery";
 import {
-  getGalleryImages,
+  getGalleryPage,
   isCloudinaryConfigured,
 } from "@/lib/cloudinary";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -30,7 +30,9 @@ const jsonLd = {
 
 export default async function HomePage() {
   const configured = isCloudinaryConfigured();
-  const images = configured ? await getGalleryImages() : [];
+  const galleryPage = configured
+    ? await getGalleryPage()
+    : { images: [], nextOffset: 0, total: 0 };
 
   return (
     <main className="site-shell">
@@ -47,8 +49,10 @@ export default async function HomePage() {
         </span>
       </header>
 
-      {images.length > 0 ? <Gallery images={images} /> : null}
-      {configured && images.length === 0 ? (
+      {galleryPage.images.length > 0 ? (
+        <Gallery images={galleryPage.images} totalImages={galleryPage.total} />
+      ) : null}
+      {configured && galleryPage.total === 0 ? (
         <p className="empty-state">The collection is being assembled.</p>
       ) : null}
       {!configured && process.env.NODE_ENV === "development" ? (

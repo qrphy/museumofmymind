@@ -7,7 +7,18 @@ import { Lightbox } from "@/components/lightbox";
 import type { GalleryImage } from "@/lib/cloudinary";
 
 vi.mock("next/image", () => ({
-  default: ({ preload, ...props }: ImgHTMLAttributes<HTMLImageElement> & { preload?: boolean }) => {
+  default: ({
+    blurDataURL,
+    placeholder,
+    preload,
+    ...props
+  }: ImgHTMLAttributes<HTMLImageElement> & {
+    blurDataURL?: string;
+    placeholder?: string;
+    preload?: boolean;
+  }) => {
+    void blurDataURL;
+    void placeholder;
     void preload;
     return createElement("img", props);
   },
