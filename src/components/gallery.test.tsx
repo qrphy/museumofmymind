@@ -55,4 +55,19 @@ describe("Gallery", () => {
     fireEvent.keyDown(document, { key: "ArrowRight" });
     expect(screen.getByText("2 / 2")).toBeInTheDocument();
   });
+
+  it("switches between the available desktop and mobile layouts", async () => {
+    const user = userEvent.setup();
+    render(<Gallery images={images} />);
+    const gallery = screen.getByRole("region", { name: "Image gallery" });
+
+    expect(gallery).toHaveAttribute("data-desktop-columns", "4");
+    expect(gallery).toHaveAttribute("data-mobile-columns", "1");
+
+    await user.click(screen.getByRole("button", { name: "6 column layout" }));
+    await user.click(screen.getByRole("button", { name: "2 column layout" }));
+
+    expect(gallery).toHaveAttribute("data-desktop-columns", "6");
+    expect(gallery).toHaveAttribute("data-mobile-columns", "2");
+  });
 });

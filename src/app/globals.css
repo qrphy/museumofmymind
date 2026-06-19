@@ -57,10 +57,80 @@ button {
   text-transform: uppercase;
 }
 
+.gallery-frame {
+  padding: 0 var(--gutter) clamp(5rem, 12vw, 12rem);
+}
+
+.layout-picker {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: clamp(1.2rem, 2vw, 2rem);
+}
+
+.layout-picker__options {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.18rem;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+}
+
+.layout-picker__options--desktop {
+  display: none;
+}
+
+.layout-picker__button {
+  display: flex;
+  min-width: 2.6rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  padding: 0 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.layout-picker__button:hover,
+.layout-picker__button:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+.layout-picker__button:focus-visible {
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.layout-picker__button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.layout-picker__icon {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 2px;
+  gap: 2px;
+  height: 10px;
+}
+
+.layout-picker__icon span {
+  background: currentColor;
+}
+
+.layout-picker__label {
+  font-size: 0.58rem;
+  line-height: 1;
+}
+
 .gallery {
   columns: 1;
   column-gap: var(--gutter);
-  padding: 0 var(--gutter) clamp(5rem, 12vw, 12rem);
 }
 
 .gallery__item {
@@ -250,15 +320,27 @@ button {
   }
 }
 
-@media (min-width: 960px) {
-  .gallery {
-    columns: 3;
+@media (min-width: 640px) and (max-width: 959px) {
+  .layout-picker {
+    display: none;
   }
 }
 
-@media (min-width: 1440px) {
-  .gallery {
+@media (min-width: 960px) {
+  .layout-picker__options--mobile {
+    display: none;
+  }
+
+  .layout-picker__options--desktop {
+    display: flex;
+  }
+
+  .gallery[data-desktop-columns="4"] {
     columns: 4;
+  }
+
+  .gallery[data-desktop-columns="6"] {
+    columns: 6;
   }
 }
 
@@ -273,6 +355,10 @@ button {
 
   .lightbox__image {
     max-height: calc(100dvh - 8rem);
+  }
+
+  .gallery[data-mobile-columns="2"] {
+    columns: 2;
   }
 }
 
