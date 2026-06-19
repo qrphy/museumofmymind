@@ -15,6 +15,7 @@
     "photos:upload": "tsx --env-file=.env.local scripts/upload-cloudinary.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.9",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "cloudinary": "^2.10.0",

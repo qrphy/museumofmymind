@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Mono } from "next/font/google";
 
@@ -25,6 +26,8 @@ const utility = IBM_Plex_Mono({
   variable: "--font-utility",
   weight: ["400"],
 });
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -88,6 +91,9 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
       </body>
+      {googleAnalyticsId ? (
+        <GoogleAnalytics gaId={googleAnalyticsId} />
+      ) : null}
     </html>
   );
 }
